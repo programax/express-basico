@@ -15,8 +15,14 @@ const app = express();
 
 app.use(express.json());
 
-app.post('/users', isAdminMiddleware, validations.validate(validations.createUsersValidation), async (req, res, next) => {
-    throw new Error('hello');
+app.post('/users', isAdminMiddleware, validations.validate(validations.createUsersValidation), (req, res, next) => {
+    res.json({
+        status: 'ok',
+    });
+});
+
+app.post('/users-async', isAdminMiddleware, validations.validate(validations.createUsersValidation), async (req, res, next) => {
+    throw new Error('async error');
 
     res.json({
         status: 'ok',
